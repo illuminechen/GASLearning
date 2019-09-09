@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons1.css">
+    <script src="//npmcdn.com/react@0.14.7/dist/react.js"></script>
+    <script src="//npmcdn.com/react-dom@0.14.7/dist/react-dom.js"></script>
+    <script src="//npmcdn.com/react-multiselect-revolunet@1.0.5"></script>
+  </head>
+  <body>      
+  </body>
+  <script>
+    // receive some values from spreadsheet here
+    // turn back strings to JSON
+    var choices = JSON.parse("<?= choices ?>");
+    // instantiate the react component with props
+    // using the umd library name
+    var cmp = React.createElement(window['react-multiselect-revolunet'], {
+       choices: choices,
+       onChange: function(selection) {
+          // send result to spreadsheet function
+          google.script.run.setActiveCellValue(selection.join(','));
+       }
+    });
+    // render the component
+    ReactDOM.render(cmp, document.body);
+  </script>
+</html>
+
+
